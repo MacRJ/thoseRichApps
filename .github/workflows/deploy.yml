@@ -24,8 +24,10 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # No `environment:` here on purpose: the AWS role trusts this repo's main branch,
-    # and adding an environment would change the identity GitHub presents to AWS.
+    # No `environment:` here on purpose. The AWS role trusts exactly
+    #   repo:MacRJ@29076614/thoseRichApps@1441399493:ref:refs/heads/main
+    # (GitHub includes the owner and repo ID numbers). Adding an environment,
+    # or renaming/moving the repo, changes that identity and needs a trust update.
     steps:
       - uses: actions/checkout@v4
 
