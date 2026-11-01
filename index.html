@@ -1,21 +1,105 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>thoseRichApps · Rich Jones</title>
-    <meta name="description" content="Rich Jones builds small, useful tools: a daily trading signal, Apify actors and more. Marine vet and software engineer in Nome, Alaska." />
-    <meta property="og:title" content="thoseRichApps" />
-    <meta property="og:description" content="Small tools and a daily trading signal, built in Nome, Alaska." />
-    <meta property="og:url" content="https://thoserichapps.com/" />
-    <meta name="theme-color" content="#0a0e13" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>thoseRichApps · back soon</title>
+<meta name="description" content="thoseRichApps is being rebuilt. Projects, Apify actors and a daily trading signal are on the way.">
+<meta name="theme-color" content="#0a0e13">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: tab bar on top, one full-height preview of the chosen option below. Deliberately single dark theme to match the Desk site. */
+:root {
+  --bg: #0a0e13; --panel: #10161e; --line: #1f2a36; --fg: #d6dde6; --bright: #ffffff; --muted: #7d8a99;
+  --amber: #ffb547; --up: #3ecf8e;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--mono); font-size: 14px; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+
+.opt { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding-block: 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.amber { color: var(--amber); }
+.caret { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* A: terminal deploy log */
+.term { width: 100%; max-width: 680px; background: var(--panel); border: 1px solid var(--line); }
+.term-top { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); align-items: center; }
+.term-top i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.term-top span { margin-left: 8px; color: var(--muted); font-size: 12px; }
+.term-body { padding: 18px; line-height: 1.9; font-size: 13px; min-height: 260px; }
+.term-body p { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.typing .term-body p { visibility: hidden; }
+.typing .term-body p.shown { visibility: visible; }
+.ok { color: var(--up); } .dim { color: var(--muted); }
+.term-foot { border-top: 1px solid var(--line); padding: 12px 18px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
+
+/* B: quiet mark */
+.mark { text-align: left; max-width: 620px; width: 100%; }
+.mark .logo { color: var(--amber); font-weight: 700; font-size: 15px; margin: 0 0 40px; }
+.mark h1 { font-size: clamp(34px, 7vw, 64px); line-height: 1.02; color: var(--bright); margin: 0 0 20px; letter-spacing: -0.03em; font-weight: 800; text-wrap: balance; }
+.mark p { color: var(--muted); line-height: 1.7; margin: 0 0 28px; max-width: 48ch; }
+.mark dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; border-top: 1px dashed var(--line); padding-top: 16px; }
+.mark dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+.mark dd { margin: 4px 0 0; font-size: 13px; }
+
+/* C: hazard tape */
+.tape-opt { flex-direction: column; gap: 0; padding-left: 0; padding-right: 0; overflow: hidden; }
+.hazard { width: 110%; margin-left: -5%; height: 34px; background: repeating-linear-gradient(-45deg, var(--amber) 0 22px, var(--bg) 22px 44px); }
+.hazard.r { transform: rotate(-2deg); } .hazard.l { transform: rotate(1.5deg); }
+.tape-mid { padding-block: 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); text-align: center; max-width: 720px; }
+.tape-mid .stamp { display: inline-block; border: 2px solid var(--amber); color: var(--amber); padding: 4px 10px; font-size: 12px; letter-spacing: 0.14em; margin-bottom: 22px; }
+.tape-mid h1 { font-size: clamp(36px, 8vw, 76px); line-height: 1; margin: 0 0 18px; color: var(--bright); font-weight: 800; letter-spacing: -0.03em; }
+.tape-mid p { color: var(--muted); margin: 0 auto; max-width: 46ch; line-height: 1.7; }
+.tape-mid .sig { margin-top: 28px; display: inline-flex; gap: 8px; align-items: center; font-size: 12px; color: var(--fg); border: 1px solid var(--line); padding: 8px 12px; }
+.tape-mid .sig i { width: 7px; height: 7px; border-radius: 50%; background: var(--up); box-shadow: 0 0 8px var(--up); }
+
+@media (max-width: 520px) { .mark dl { grid-template-columns: 1fr 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+html, body { margin: 0; }
+</style>
+</head>
+<body>
+<main>
+<section class="opt" id="opt-a">
+  <div class="term">
+    <div class="term-top"><i></i><i></i><i></i><span>rich@nome:~/thoserichapps</span></div>
+    <div class="term-body" id="log">
+      <p><span class="amber">$</span> deploy thoserichapps --prod</p>
+      <p>  resolving projects .......... <span class="ok">ok</span></p>
+      <p>  wiring apify actors ......... <span class="ok">ok</span></p>
+      <p>  warming up signal desk ...... <span class="ok">ok</span></p>
+      <p>  polishing homepage .......... <span class="amber">in progress</span></p>
+      <p><span class="dim">  # back soon. building it right from Nome, AK.</span></p>
+      <p><span class="amber">$</span> <span class="caret">_</span></p>
+    </div>
+    <div class="term-foot"><span>thoseRichApps</span><span>status: <span class="amber">rebuilding</span></span></div>
+  </div>
+</section>
+</main>
+<script>
+// Text is in the HTML; this only reveals it line by line. If it fails, the full log still shows.
+(function () {
+  var rows = document.querySelectorAll('#log p');
+  if (!rows.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('typing');
+  var i = 0;
+  function next() {
+    if (i >= rows.length) return;
+    rows[i].classList.add('shown'); i++;
+    setTimeout(next, i === rows.length - 2 ? 1400 : 550);
+  }
+  next();
+})();
+</script>
+</body>
 </html>
